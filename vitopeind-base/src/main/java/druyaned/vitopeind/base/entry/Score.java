@@ -60,12 +60,12 @@ public class Score {
      * white color. The higher the positive value, the greener the color.
      * The lower the negative value, the redder the color.
      * 
-     * <P><i>Examples of conversion</i><ol>
-     * <li>-10 -> ff0000</li>
-     * <li> -2 -> 330000</li>
-     * <li>  0 -> 000000</li>
-     * <li> +2 -> 003300</li>
-     * <li>+10 -> 00ff00</li></ol>
+     * <P><i>Examples of conversion</i><pre>
+       *-10 -> ff|00|00
+       * -2 -> 33|00|00
+       *  0 -> 00|00|00
+       * +2 -> 00|33|00
+       *+10 -> 00|ff|00</pre>
      * 
      * @param value validated score value to convert it into the color
      * @return converted color, which is shade of red, shade of green or it is white

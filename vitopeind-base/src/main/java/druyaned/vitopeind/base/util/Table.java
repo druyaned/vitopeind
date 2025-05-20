@@ -1,7 +1,18 @@
 package druyaned.vitopeind.base.util;
 
+/**
+ * A simple linked hash table with fixed capacity
+ * where hash is calculated as difference between a given key and the first table's key.
+ * Also it provides addition and removal only of the last element.
+ * Useful for tracking years of human life.
+ * Has array of values (table) and array of keys.
+ * 
+ * @author druyaned
+ * @param <T> the type of elements in this list
+ */
 public class Table<T> {
     
+    /** Maximum capacity of the table. */
     public static final int MAX_CAPACITY = (1 << 23);
     
     private final int capacity;
@@ -9,6 +20,13 @@ public class Table<T> {
     private final int[] keys;
     private int size;
     
+    /**
+     * Constructs a new table with the given initial capacity.
+     * Throws {@link IllegalArgumentException} if the capacity is invalid.
+     * Assign array of elements (table) and array of keys.
+     * 
+     * @param capacity initial capacity of the table which must be in [1, {@link #MAX_CAPACITY}]
+     */
     public Table(int capacity) {
         throwIfInvalidCapacity(capacity);
         this.capacity = capacity;
@@ -17,6 +35,15 @@ public class Table<T> {
         this.size = 0;
     }
     
+    /**
+     * Adds the given value by key to the array of elements and adds key to the array of keys.
+     * Throws {@link NullPointerException} if the value is null.
+     * Hash is calculated as difference between the given key and the first key of the table.
+     * Throws {@link IllegalArgumentException} if hash is not in (last hash, capacity).
+     * 
+     * @param key {@code hash = key - key[0]}, hash must be in (last hash, capacity)
+     * @param value not null value to be added
+     */
     public void add(int key, T value) {
         throwIfNull(value);
         if (size == 0) {
@@ -25,7 +52,7 @@ public class Table<T> {
             keys[size++] = key;
         } else {
             int hash = getHash(key);
-            throwIfInvalidHash(hash);
+            throwIfInvalidHash(hash);//TODO:fix
             throwIfHashNotGreaterThanLast(hash, getLastHash());
             table[hash] = value;
             keys[size++] = key;
